@@ -1,4 +1,6 @@
 from django import forms
+
+#from .models import Mancuerna,Maquina,Barra
     
 class CrearMancuernaFormulario(forms.Form):
     # Valores de todos los productos
@@ -28,5 +30,5 @@ class CrearBarraFormulario(forms.Form):
     precio = forms.IntegerField()
     
     # Específicos Barra
-    tipo = forms.CharField(choices=tipo_de_barra)
+    tipo = forms.ChoiceField(choices=tipo_de_barra)
     peso = forms.IntegerField()

@@ -24,7 +24,7 @@ class Barra(Producto):
         ('olimpica', 'Olimpica'),
     )
     
-    tipo = models.CharField(choices=tipo_de_barra)
+    tipo = models.CharField(max_length=25,choices=tipo_de_barra)
     peso = models.IntegerField()
     
     def __str__(self):

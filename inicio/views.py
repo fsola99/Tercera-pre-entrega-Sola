@@ -62,7 +62,7 @@ def crear_maquina(request):
     formulario = CrearMaquinaFormulario()
     return render(request, 'crear_maquina.html', {'formulario': formulario})
 
-def crear_maquina(request):
+def crear_mancuerna(request):
     
     if request.method == 'POST':
         formulario = CrearMancuernaFormulario(request.POST)

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title_head %}
+<title>Maquinas</title>
+{% endblock title_head %}
+
+{% block h1_header %}
+Maquinas
+{% endblock h1_header %}
+
+{% block main %}
+
+<form action="">
+    {{formulario}}
+    <input type="submit" value="Buscar">
+</form>
+
+{% if listado_de_maquinas %}
+<ul>
+    {% for maquina in listado_de_maquinas %}
+    <li>{{maquina}}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No se encontraron maquinas.</p>
+{% endif %}
+
+{% endblock main %}

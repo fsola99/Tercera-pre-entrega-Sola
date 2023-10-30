@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title_head %}
+<title>Barras</title>
+{% endblock title_head %}
+
+{% block h1_header %}
+Barras
+{% endblock h1_header %}
+
+{% block main %}
+
+<form action="">
+    {{formulario}}
+    <input type="submit" value="Buscar">
+</form>
+
+{% if listado_de_barras %}
+<ul>
+    {% for barra in listado_de_barras %}
+    <li>{{barra}}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No se encontraron barras.</p>
+{% endif %}
+
+{% endblock main %}

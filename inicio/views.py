@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from .forms import CrearMancuernaFormulario, CrearMaquinaFormulario, CrearBarraFormulario
 
 from inicio.models import Maquina, Mancuerna, Barra
+from .forms import CrearMancuernaFormulario, CrearMaquinaFormulario, CrearBarraFormulario
 
 def inicio(request):
     return render(request, 'inicio/inicio.html', {})
@@ -60,7 +60,7 @@ def crear_maquina(request):
             return render(request, 'inicio/crear_maquina.html', {'formulario': formulario})
         
     formulario = CrearMaquinaFormulario()
-    return render(request, 'crear_maquina.html', {'formulario': formulario})
+    return render(request, 'inicio/crear_maquina.html', {'formulario': formulario})
 
 def crear_mancuerna(request):
     
@@ -109,4 +109,4 @@ def crear_barra(request):
             return render(request, 'inicio/crear_barra.html', {'formulario': formulario})
         
     formulario = CrearBarraFormulario()
-    return render(request, 'crear_barra.html', {'formulario': formulario})
+    return render(request, 'inicio/crear_barra.html', {'formulario': formulario})

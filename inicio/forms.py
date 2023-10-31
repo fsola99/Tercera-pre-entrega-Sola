@@ -32,3 +32,16 @@ class CrearBarraFormulario(forms.Form):
     # Específicos Barra
     tipo = forms.ChoiceField(choices=tipo_de_barra)
     peso = forms.IntegerField()
+    
+class BusquedaMancuernaFormulario(forms.Form):
+    peso = forms.IntegerField(required=False)
+    
+class BusquedaMaquinaFormulario(forms.Form):
+    nombre = forms.CharField(max_length=100,required=False)
+    
+class BusquedaBarraFormulario(forms.Form):
+    tipo_de_barra = (
+        ('regular', 'Regular'),
+        ('olimpica', 'Olimpica'),
+    )
+    tipo = forms.ChoiceField(choices=tipo_de_barra,required=False)

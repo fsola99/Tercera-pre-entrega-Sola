@@ -1,40 +1,46 @@
 from django.shortcuts import render, redirect
 
-from inicio.models import Maquina, Mancuerna, Barra
-from .forms import CrearMancuernaFormulario, CrearMaquinaFormulario, CrearBarraFormulario
+from .models import Maquina, Mancuerna, Barra
+from .forms import CrearMancuernaFormulario, CrearMaquinaFormulario, CrearBarraFormulario, BusquedaMancuernaFormulario, BusquedaMaquinaFormulario, BusquedaBarraFormulario
 
 def inicio(request):
     return render(request, 'inicio/inicio.html', {})
 
 def maquinas(request):
-    maquina_a_buscar = request.GET.get("nombre")
     
-    if maquina_a_buscar:
-        listado_de_maquinas = Maquina.objects.filter(nombre__icontains=maquina_a_buscar)
-    else:
-        listado_de_maquinas = Maquina.objects.all()
+    formulario = BusquedaMaquinaFormulario(request.GET)
+    listado_de_maquinas = Maquina.objects.all()
+    if formulario.is_valid():
+        nombre_a_buscar = formulario.cleaned_data.get('nombre')
+        if nombre_a_buscar: # Verifica si se proporciona un valor de búsqueda específico
+            listado_de_maquinas = Maquina.objects.filter(nombre__icontains=nombre_a_buscar)
     
-    return render(request, 'inicio/maquinas.html', {'listado_de_maquinas':listado_de_maquinas})
+    formulario = BusquedaMaquinaFormulario()
+    return render(request, 'inicio/maquinas.html', {'formulario': formulario, 'listado_de_maquinas': listado_de_maquinas})
 
 def mancuernas(request):
-    mancuerna_a_buscar = request.GET.get("peso")
     
-    if mancuerna_a_buscar:
-        listado_de_mancuernas = Mancuerna.objects.filter(peso=mancuerna_a_buscar)
-    else:
-        listado_de_mancuernas = Mancuerna.objects.all()
+    formulario = BusquedaMancuernaFormulario(request.GET)
+    listado_de_mancuernas = Mancuerna.objects.all()
+    if formulario.is_valid():
+        peso_a_buscar = formulario.cleaned_data.get('peso')
+        if peso_a_buscar:  # Verifica si se proporciona un valor de búsqueda específico
+            listado_de_mancuernas = Mancuerna.objects.filter(peso=peso_a_buscar)
     
-    return render(request, 'inicio/mancuernas.html', {'listado_de_mancuernas':listado_de_mancuernas})
+    formulario = BusquedaMancuernaFormulario()
+    return render(request, 'inicio/mancuernas.html', {'formulario': formulario, 'listado_de_mancuernas': listado_de_mancuernas})
 
 def barras(request):
-    barras_a_buscar = request.GET.get("tipo")
     
-    if barras_a_buscar:
-        listado_de_barras = Barra.objects.filter(tipo=barras_a_buscar)
-    else:
-        listado_de_barras = Barra.objects.all()
+    formulario = BusquedaBarraFormulario(request.GET)
+    listado_de_barras = Barra.objects.all()
+    if formulario.is_valid():
+        tipo_a_buscar = formulario.cleaned_data.get('tipo')
+        if tipo_a_buscar: # Verifica si se proporciona un valor de búsqueda específico
+            listado_de_barras = Barra.objects.filter(tipo=tipo_a_buscar)
     
-    return render(request, 'inicio/barras.html', {'listado_de_barras':listado_de_barras})
+    formulario = BusquedaBarraFormulario()
+    return render(request, 'inicio/barras.html', {'formulario': formulario, 'listado_de_barras': listado_de_barras})
 
 def crear_maquina(request):
     
@@ -76,7 +82,7 @@ def crear_mancuerna(request):
             # Específicos Mancuerna
             peso = info_limpia.get('peso')
             
-            mancuerna = Maquina(marca=marca,precio=precio,peso=peso)
+            mancuerna = Mancuerna(marca=marca,precio=precio,peso=peso)
             mancuerna.save()
             
             return redirect('mancuernas')
@@ -101,7 +107,7 @@ def crear_barra(request):
             tipo = info_limpia.get('tipo')
             peso = info_limpia.get('peso')
             
-            barra = Maquina(marca=marca,precio=precio,tipo=tipo,peso=peso)
+            barra = Barra(marca=marca,precio=precio,tipo=tipo,peso=peso)
             barra.save()
             
             return redirect('barras')
